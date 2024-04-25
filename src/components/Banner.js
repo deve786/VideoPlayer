@@ -6,6 +6,7 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
+import { Link } from 'react-router-dom';
 function Banner() {
     return (
         <div className=' bg-slate-600'>
@@ -32,23 +33,25 @@ function Banner() {
                         Ready to take your content to the next level? With MotionDrop, you get the fastest, most reliable video uploading experience ever. Whether you're a creator, marketer, or just love sharing videos, our tool ensures your media is live and ready to impress in seconds.
                     </Typography>
                     <a href="#" className="inline-block">
-                        <Button variant="text" className="flex items-center gap-2">
-                            Get Started
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                                className="h-4 w-4"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                                />
-                            </svg>
-                        </Button>
+                        <Link to='/home' >
+                            <Button variant="text" className="flex items-center gap-2">
+                                Get Started
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    className="h-4 w-4"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                                    />
+                                </svg>
+                            </Button>
+                        </Link>
                     </a>
                 </CardBody>
             </Card>
