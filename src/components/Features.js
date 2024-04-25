@@ -6,6 +6,7 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
+import { Link } from 'react-router-dom';
 function Features() {
   return (
     <Card className='mt-10 p-5 w-full flex md:flex-col flex '>
@@ -103,30 +104,32 @@ function Features() {
                             />
                         </CardHeader>
                         <Typography variant="h6" color="gray" className="mb-4  text-3xl lg:text-2xl mt-2">
-                            Watch history
+                            Watch History
                         </Typography>
 
                         <Typography color="gray" className="mb-8 font-normal text-justify">
                         Revisit your previously watched videos effortlessly with our watch history feature. Our platform automatically records every video you watch, allowing you to easily find and re-watch your favorite content. 
                         </Typography>
                         <a href="#" className="inline-block">
-                            <Button variant="text" className="flex items-center gap-2">
-                                Get Started
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                    className="h-4 w-4"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                                    />
-                                </svg>
-                            </Button>
+                            <Link to={'/history'}>
+                                <Button variant="text" className="flex items-center gap-2">
+                                    History
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                        className="h-4 w-4"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                                        />
+                                    </svg>
+                                </Button>
+                            </Link>
                         </a>
                     </CardBody>
 
