@@ -8,10 +8,10 @@ import {
 } from "@material-tailwind/react";
 function Features() {
   return (
-    <Card className='mt-10 p-5 w-full flex md:flex-col flex'>
+    <Card className='mt-10 p-5 w-full flex md:flex-col flex '>
                 <h1 className='text-center text-3xl font-bold'>Features</h1>
                 <div className="sm:flex-col justify-around items-center flex flex-row ">
-                <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 border rounded-2xl justify-center flex items-center mx-2'>
+                <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 border rounded-2xl justify-center flex items-center mx-2 transition-all duration-200 hover:shadow-md hover:shadow-grey-700'>
                         <CardHeader
                             shadow={false}
                             floated={false}
@@ -51,7 +51,7 @@ function Features() {
                     </CardBody>
 
 
-                    <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 border rounded-2xl justify-center flex items-center mx-2'>
+                    <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 border rounded-2xl justify-center flex items-center mx-2 transition-all duration-200 hover:shadow-md hover:shadow-grey-700'>
                         <CardHeader
                             shadow={false}
                             floated={false}
@@ -90,7 +90,7 @@ function Features() {
                             </Button>
                         </a>
                     </CardBody>
-                    <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 border rounded-2xl justify-center flex items-center mx-2'>
+                    <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 border rounded-2xl justify-center flex items-center mx-2 transition-all duration-200 hover:shadow-md hover:shadow-grey-700'>
                         <CardHeader
                             shadow={false}
                             floated={false}
