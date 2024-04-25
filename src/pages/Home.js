@@ -4,9 +4,24 @@ import {
     CardHeader,
     CardBody,
     Typography,
+
     Button,
+    Dialog,
+
+    CardFooter,
+
+    Input,
+    Checkbox,
 } from "@material-tailwind/react";
+import VideoCard from '../components/VideoCard';
+import { Link } from 'react-router-dom';
 function Home() {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen((cur) => !cur);
+
+    const [category, setCategory] = React.useState(false);
+    const handleOpen1 = () => setCategory((cur1) => !cur1);
+
     return (
         <div className='p-8'>
             <Card className=" justify-around items-center flex flex-row sm:flex-col">
@@ -27,7 +42,7 @@ function Home() {
                     </Typography>
 
                     <div className='flex gap-4 justify-center items-center sm:flex-col  '>
-                        <Button variant="gradient" className="flex items-center gap-3 " data-dialog-target="sign-in-dialog">
+                        <Button onClick={handleOpen} variant="gradient" className="flex items-center gap-3 " data-dialog-target="sign-in-dialog">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -44,196 +59,150 @@ function Home() {
                             </svg>
                             Upload Files
                         </Button>
-                        <div data-dialog-backdrop="sign-in-dialog" data-dialog-backdrop-close="true"
-                            className="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
-                            <div data-dialog="sign-in-dialog"
-                                className="relative mx-auto flex w-full max-w-[24rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-                                sad
-                            </div>
-                        </div>
+                        {/* <Button onClick={handleOpen}>Sign In</Button> */}
+                        <Dialog
+                            size="xs"
+                            open={open}
+                            handler={handleOpen}
+                            className="bg-transparent shadow-none sm:max-w-100"
+                        >
+                            <Card className="mx-auto w-full max-w-[24rem]">
+                                <CardBody className="flex flex-col gap-4">
+                                    <Typography variant="h4" color="blue-gray">
+                                        Video Upload
+                                    </Typography>
+                                    <Typography
+                                        className="mb-3 font-normal"
+                                        variant="paragraph"
+                                        color="gray"
+                                    >
+
+                                    </Typography>
+                                    <Typography className="-mb-2" variant="h6">
+                                        Video Caption
+                                    </Typography>
+                                    <Input label="Caption" size="lg" />
+                                    <Typography className="-mb-2" variant="h6">
+                                        Cover Image URL
+                                    </Typography>
+                                    <Input label="Image URL" size="lg" />
+                                    <Typography className="-mb-2" variant="h6">
+                                        Youtube Video URL
+                                    </Typography>
+                                    <Input label="Video URL" size="lg" />
+
+                                </CardBody>
+                                <CardFooter className="pt-0">
+                                    <Button variant="gradient" onClick={handleOpen} fullWidth>
+                                        Add
+                                    </Button>
+
+                                </CardFooter>
+                            </Card>
+                        </Dialog>
 
 
-                        <Button variant="gradient" className="flex items-center gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
+                        <Link to={'/history'}>
+                            <Button variant="gradient" className="flex items-center gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+    
+                                Watch History
+                            </Button>
+                        </Link>
 
-                            Watch History
-                        </Button>
-                        
                     </div>
 
                 </CardBody>
             </Card>
 
-            <Card className=" justify-around items-center flex flex-row  mt-5 p-5 gap-2 flex-wrap w-100">
+            <div className='flex flex-row justify-between gap-2 sm:flex-wrap'>
+                <Card className=" justify-around items-center flex flex-row  mt-5 p-5 gap-2 flex-wrap w-3/5">
+                    <VideoCard />
+                    <VideoCard />
+                    <VideoCard />
+                    <VideoCard />
+                    <VideoCard />
+                    <VideoCard />
+                </Card>
 
-                <div class=" flex flex-col mt-6 p-3 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl ">
-                    <div
-                        class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-                        <img
-                            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                            alt="card-image" className="h-full w-full object-cover" />
-                    </div>
-                    <div class="p-6">
-                        <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                            UaI/UX Review Check
-                        </h5>
-
-                    </div>
-                    <div class="p-6 pt-0">
-
-                        <button
-
-                            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
-                            type="button">
+                <Card className="   mt-5 w-2/5">
+                    <CardHeader
+                        shadow={false}
+                        floated={false}
+                        className="m-0 w-full  rounded-r-none p-3 text-center"
+                    >
+                        <Typography variant="h4" color="blue-gray">
+                            Categories
+                        </Typography>
+                    </CardHeader>
+                    <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 xs:items-center'>
+                        <Button variant="gradient" className="flex items-center gap-3" onClick={handleOpen1}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
 
-                            Delete
-                        </button>
-                    </div>
-                </div>
-                <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-                    <div
-                        class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-                        <img
-                            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                            alt="card-image" className="h-full w-full object-cover" />
-                    </div>
-                    <div class="p-6">
-                        <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                            UI/UX Review Check
-                        </h5>
 
-                    </div>
-                    <div class="p-6 pt-0">
+                            Add Categories
+                        </Button>
 
-                        <button
+                    </CardBody>
+                    <Dialog
+                        size="xs"
+                        open={category}
+                        handler={handleOpen1}
+                        className="bg-transparent shadow-none"
+                    >
+                        <Card className="mx-auto w-full max-w-[24rem]">
+                            <CardBody className="flex flex-col gap-4">
+                                <Typography variant="h4" color="blue-gray">
+                                    Sign In
+                                </Typography>
+                                <Typography
+                                    className="mb-3 font-normal"
+                                    variant="paragraph"
+                                    color="gray"
+                                >
+                                    Enter your email and password to Sign In.
+                                </Typography>
+                                <Typography className="-mb-2" variant="h6">
+                                    Your Email
+                                </Typography>
+                                <Input label="Email" size="lg" />
+                                <Typography className="-mb-2" variant="h6">
+                                    Your Password
+                                </Typography>
+                                <Input label="Password" size="lg" />
+                                <div className="-ml-2.5 -mt-3">
+                                    <Checkbox label="Remember Me" />
+                                </div>
+                            </CardBody>
+                            <CardFooter className="pt-0">
+                                <Button variant="gradient" onClick={handleOpen1} fullWidth>
+                                    Sign In
+                                </Button>
+                                <Typography variant="small" className="mt-4 flex justify-center">
+                                    Don&apos;t have an account?
+                                    <Typography
+                                        as="a"
+                                        href="#signup"
+                                        variant="small"
+                                        color="blue-gray"
+                                        className="ml-1 font-bold"
+                                        onClick={handleOpen1}
+                                    >
+                                        Sign up
+                                    </Typography>
+                                </Typography>
+                            </CardFooter>
+                        </Card>
+                    </Dialog>
+                </Card>
+            </div>
 
-                            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                            </svg>
 
-                            Delete
-                        </button>
-                    </div>
-                </div>
-                <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-                    <div
-                        class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-                        <img
-                            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                            alt="card-image" className="h-full w-full object-cover"/>
-                    </div>
-                    <div class="p-6">
-                        <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                            UI/UX Review Check
-                        </h5>
-
-                    </div>
-                    <div class="p-6 pt-0">
-
-                        <button
-
-                            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                            </svg>
-
-                            Delete
-                        </button>
-                    </div>
-                </div>
-                <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-                    <div
-                        class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-                        <img
-                            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                            alt="card-image" className="h-full w-full object-cover"/>
-                    </div>
-                    <div class="p-6">
-                        <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                            UI/UX Review Check
-                        </h5>
-
-                    </div>
-                    <div class="p-6 pt-0">
-
-                        <button
-
-                            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                            </svg>
-
-                            Delete
-                        </button>
-                    </div>
-                </div>
-                <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-                    <div
-                        class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-                        <img
-                            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                            alt="card-image" className="h-full w-full object-cover"/>
-                    </div>
-                    <div class="p-6">
-                        <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                            UI/UX Review Check
-                        </h5>
-
-                    </div>
-                    <div class="p-6 pt-0">
-
-                        <button
-
-                            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                            </svg>
-
-                            Delete
-                        </button>
-                    </div>
-                </div>
-                <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-                    <div
-                        class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-                        <img
-                            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                            alt="card-image" className="h-full w-full object-cover"/>
-                    </div>
-                    <div class="p-6">
-                        <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                            UI/UX Review Check
-                        </h5>
-
-                    </div>
-                    <div class="p-6 pt-0">
-
-                        <button
-
-                            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                            </svg>
-
-                            Delete
-                        </button>
-                    </div>
-                </div>
-                
-            </Card>
-
-        </div>
+        </div >
     )
 }
 
