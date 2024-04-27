@@ -118,7 +118,7 @@ function Home() {
             </Card>
 
             <div className='flex flex-row justify-between gap-2 sm:flex-wrap'>
-                <Card className=" justify-around items-center flex flex-row  mt-5 p-5 gap-2 flex-wrap w-3/5">
+                <Card className=" justify-around items-center flex flex-row  mt-5 p-5 gap-2 flex-wrap w-3/5 sm:w-full">
                     <VideoCard />
                     <VideoCard />
                     <VideoCard />
@@ -127,7 +127,7 @@ function Home() {
                     <VideoCard />
                 </Card>
 
-                <Card className="   mt-5 w-2/5">
+                <Card className="   mt-5 w-2/5 sm:w-full">
                     <CardHeader
                         shadow={false}
                         floated={false}
