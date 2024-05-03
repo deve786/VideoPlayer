@@ -10,22 +10,21 @@ import {
     Typography,
     Card,
 } from "@material-tailwind/react";
-function VideoCard() {
+function VideoCard({ data }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen((cur) => !cur);
     return (
 
 
-        <div class=" flex flex-col mt-6 p-3 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl  ">
-            <div
-                class="relative h-56 mx-4  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40 sm:h-1/2">
+        <div class=" flex flex-col w-96  mt-6 p-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl md:w-full ">
+            <div class="relative h-56  w-80 sm:w-full  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40 sm:h-1/2">
                 <img onClick={handleOpen}
-                    src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-                    alt="card-image" className="h-full w-full object-cover cursor-pointer" />
+                    src={data.imageUrl}
+                    alt="card-image" className="h-56 w-80  cursor-pointer sm:w-full" />
             </div>
             <div class="p-6">
                 <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                    UaI/UX Review Check
+                    {data.title}
                 </h5>
 
             </div>
@@ -42,13 +41,13 @@ function VideoCard() {
                     Delete
                 </button>
             </div>
-            <Dialog size='lg'  open={open} handler={handleOpen} className='text-center'>
-                
+            <Dialog size='lg' open={open} handler={handleOpen} className='text-center'>
+
                 <DialogBody className='flex justify-center min-w-full'>
-                <iframe width="100%" height="514" src="https://www.youtube.com/embed/ReVGCvWIANA" title="Coolie Disco - #COOLIE | Superstar Rajinikanth | Sun Pictures | Lokesh Kanagaraj | Anirudh" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <iframe width="100%" height="514" src={data.videoUrl} title="Coolie Disco - #COOLIE | Superstar Rajinikanth | Sun Pictures | Lokesh Kanagaraj | Anirudh" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </DialogBody>
                 <DialogFooter className="justify-between">
-                    
+
                     <Button
                         size="sm"
                         variant="outlined"

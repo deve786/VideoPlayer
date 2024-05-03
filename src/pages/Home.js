@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Card,
     CardHeader,
@@ -15,12 +15,74 @@ import {
 } from "@material-tailwind/react";
 import VideoCard from '../components/VideoCard';
 import { Link } from 'react-router-dom';
+import { addVideoApi, getVideoApi } from '../services/allApi';
+
 function Home() {
+    // const [handle, setHandle] = useState(false)
+    const [addUpdate, setAddUpdate] = useState(false)
+    const [video, setVideo] = useState([])
+
+    const getVideos = async () => {
+        const result = await getVideoApi()
+        if (result.status >= 200 && result.status < 300) {
+            setVideo(result.data)
+        }
+    }
+
+    console.log(video);
+
+
+    const [videoInputs, setVideoInputs] = useState({
+        title: '',
+        imageUrl: '',
+        videoUrl: ''
+    })
+
+    const setDatas = (e) => {
+        let { value, name } = e.target
+        setVideoInputs({ ...videoInputs, [name]: value })
+    }
+
+    const videoUrl = (e) => {
+        // https://youtu.be/IqiTJK_uzUY
+        // https://www.youtube.com/embed/IqiTJK_uzUY
+        let { value, name } = e.target
+        let newValue = `https://www.youtube.com/embed/${value.slice(-11,)}`
+        console.log(newValue);
+        setVideoInputs({ ...videoInputs, [name]: newValue })
+    }
+    const sndVideo = async () => {
+
+        const { title, coverImg, videoUrl } = videoInputs
+        if (title == '' || coverImg == '' || videoUrl == '') {
+            alert('please fill all datas')
+        } else {
+            const out = await addVideoApi(videoInputs)
+            console.log(out);
+            if (out.status >= 200 && out.status < 300) {
+                alert('video add successfully')
+                
+                setAddUpdate(true)
+            }
+            else {
+                console.log("failed video");
+            }
+        }
+        console.log("Clicked");
+    }
+
+    console.log(videoInputs);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen((cur) => !cur);
 
     const [category, setCategory] = React.useState(false);
     const handleOpen1 = () => setCategory((cur1) => !cur1);
+
+    useEffect(() => {
+        getVideos()
+    }, [addUpdate])
+
+
 
     return (
         <div className='p-8'>
@@ -81,19 +143,19 @@ function Home() {
                                     <Typography className="-mb-2" variant="h6">
                                         Video Caption
                                     </Typography>
-                                    <Input label="Caption" size="lg" />
+                                    <Input label="Caption" size="lg" name='title' onChange={(e) => { setDatas(e) }} />
                                     <Typography className="-mb-2" variant="h6">
                                         Cover Image URL
                                     </Typography>
-                                    <Input label="Image URL" size="lg" />
+                                    <Input label="Image URL" size="lg" name='imageUrl' onChange={(e) => { setDatas(e) }} />
                                     <Typography className="-mb-2" variant="h6">
                                         Youtube Video URL
                                     </Typography>
-                                    <Input label="Video URL" size="lg" />
+                                    <Input label="Video URL" size="lg" name='videoUrl' onChange={(e) => { videoUrl(e) }} />
 
                                 </CardBody>
                                 <CardFooter className="pt-0">
-                                    <Button variant="gradient" onClick={handleOpen} fullWidth>
+                                    <Button variant="gradient" fullWidth onClick={sndVideo}>
                                         Add
                                     </Button>
 
@@ -107,7 +169,7 @@ function Home() {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
-    
+
                                 Watch History
                             </Button>
                         </Link>
@@ -118,16 +180,20 @@ function Home() {
             </Card>
 
             <div className='flex flex-row justify-between gap-2 sm:flex-wrap'>
-                <Card className=" justify-around items-center flex flex-row  mt-5 p-5 gap-2 flex-wrap w-3/5 sm:w-full">
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
-                    <VideoCard />
+                <Card className=" justify-start  flex flex-row h-full  mt-5 p-5 gap-2 flex-wrap w-3/5 sm:w-full sm:justify-center md:justify-center">
+                    {
+                        video.length > 0 ? (
+                            video.map(i => (
+                                <VideoCard data={i} />
+                            ))
+                        ) : (
+                            <Typography variant="paragraph" color="gray">No videos available.</Typography>
+                        )
+                    }
+
                 </Card>
 
-                <Card className="   mt-5 w-2/5 sm:w-full">
+                <Card className="   mt-5 w-2/5 sm:w-fullcd">
                     <CardHeader
                         shadow={false}
                         floated={false}
