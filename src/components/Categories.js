@@ -1,97 +1,142 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+    Card,
+    CardBody,
+    Typography,
+    Button,
+    Dialog,
+    CardFooter,
+    Input,
 
-function Categories() {
+} from "@material-tailwind/react";
+import { addCategoryApi, deleteCategoriesApi, getCategoryApi } from '../services/allApi';
+function Categories({ }) {
+
+    const handleOpen1 = () => setCategory((cur1) => !cur1);
+
+    const [category, setCategory] = React.useState(false);
+    const [categoryName, setCategoryName] = useState('')
+    const [cat, setCat] = useState([])
+
+    const sndCategory = async () => {
+        let value = { categoryName, video: [] };
+        console.log(categoryName);
+        if (categoryName == '') {
+            toast.warn('Enter the data!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        } else {
+            const result = await addCategoryApi(value)
+            console.log(result);
+            toast.success('Sucessss!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+            handleOpen1()
+            getCategory()
+
+        }
+    }
+
+
+    const deleteCat=async(id)=>{
+        const result=await deleteCategoriesApi(id)
+        console.log(result);
+        getCategory()
+
+    }
+
+    const getCategory = async () => {
+        const result = await getCategoryApi()
+        setCat(result.data)
+    }
+
+    useEffect(() => {
+        getCategory()
+    }, [])
+    // console.log(cat);
     return (
-        <Card className=" justify-around items-center flex flex-row sm:flex-col ">
-            <CardHeader
-                shadow={false}
-                floated={false}
-                className="m-0 w-1/3  rounded-r-none"
-            >
-                <img
-                    src="/hero_img.png"
-                    alt="card-image"
-                    className="h-full w-full object-cover"
-                />
-            </CardHeader>
+        <div>
             <CardBody className='xs:w-full items-start flex flex-col justify-center w-1/2 xs:items-center'>
-                <Typography variant="h6" color="gray" className="mb-4  text-4xl md:text-2xl text-center">
-                    Video Upload
-                </Typography>
-
-                <div className='flex gap-4 justify-center items-center sm:flex-col  '>
-                    <Button onClick={handleOpen} variant="gradient" className="flex items-center gap-3 " data-dialog-target="sign-in-dialog">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="h-5 w-5"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-                            />
-                        </svg>
-                        Upload Files
-                    </Button>
-                    {/* <Button onClick={handleOpen}>Sign In</Button> */}
-                    <Dialog
-                        size="xs"
-                        open={open}
-                        handler={handleOpen}
-                        className="bg-transparent shadow-none sm:max-w-100"
-                    >
-                        <Card className="mx-auto w-full max-w-[24rem]">
-                            <CardBody className="flex flex-col gap-4">
-                                <Typography variant="h4" color="blue-gray">
-                                    Video Upload
-                                </Typography>
-                                <Typography
-                                    className="mb-3 font-normal"
-                                    variant="paragraph"
-                                    color="gray"
-                                >
-
-                                </Typography>
-                                <Typography className="-mb-2" variant="h6">
-                                    Video Caption
-                                </Typography>
-                                <Input label="Caption" size="lg" />
-                                <Typography className="-mb-2" variant="h6">
-                                    Cover Image URL
-                                </Typography>
-                                <Input label="Image URL" size="lg" />
-                                <Typography className="-mb-2" variant="h6">
-                                    Youtube Video URL
-                                </Typography>
-                                <Input label="Video URL" size="lg" />
-
-                            </CardBody>
-                            <CardFooter className="pt-0">
-                                <Button variant="gradient" onClick={handleOpen} fullWidth>
-                                    Add
-                                </Button>
-
-                            </CardFooter>
-                        </Card>
-                    </Dialog>
+                <Button variant="gradient" className="flex items-center gap-3" onClick={handleOpen1}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
 
 
-                    <Button variant="gradient" className="flex items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
+                    Add Categories
+                </Button>
+                <div className='flex justify-center flex-col align-center w-full'>
+                    {
 
-                        Watch History
-                    </Button>
+                        cat ?.length>0?
+                            cat.map((i,index) =>
+                                <div key={index} className=' border p-3 mt-2 w-full flex flex-row justify-between w-100'>
+                                    <h1 className='mt-3 '>{i.categoryName}</h1>
+                                    <button onClick={()=>deleteCat(i.id)}
 
+                                        class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
+                                        type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                        </svg>
+
+                                        
+                                    </button>
+                                </div>
+
+                            )
+                            :
+                            <>No Category</>
+                    }
                 </div>
-
+                {/* <h1>heading</h1> */}
             </CardBody>
-        </Card>
+            <Dialog
+                size="xs"
+                open={category}
+                handler={handleOpen1}
+                className="bg-transparent shadow-none !min-w-[95%]"
+            >
+                <Card className="mx-auto w-full max-w-[24rem]">
+                    <CardBody className="flex flex-col gap-4">
+                        <Typography variant="h4" color="blue-gray">
+                            Add Category
+                        </Typography>
+
+                        <Typography className="-mb-2" variant="h6" >
+                            Category Name
+                        </Typography>
+                        <Input label="Category Name" size="lg" onChange={(e) => setCategoryName(e.target.value)} />
+
+                    </CardBody>
+                    <CardFooter className="pt-0">
+                        <Button variant="gradient" fullWidth onClick={sndCategory}>
+                            Add
+                        </Button>
+
+                    </CardFooter>
+                </Card>
+            </Dialog>
+            <ToastContainer />
+        </div>
     )
 }
 
