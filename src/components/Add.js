@@ -43,6 +43,8 @@ function Add({ update }) {
 
     const sndVideo = async () => {
 
+        update(false)
+
         const { title, coverImg, videoUrl } = videoInputs
         if (title == '' || coverImg == '' || videoUrl == '') {
             alert('please fill all datas')

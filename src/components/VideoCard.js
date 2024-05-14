@@ -28,6 +28,7 @@ function VideoCard({ data, del }) {
     };
 
     const handleClose=()=>{
+        del(false)
         setOpen(false)
     }
     const deleteData = async (id) => {
