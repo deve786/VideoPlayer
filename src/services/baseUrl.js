@@ -1,1 +1,1 @@
-export const baseUrl='https://server-jajk.onrender.com'
+export const baseUrl='http://localhost:8000'

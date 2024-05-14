@@ -95,6 +95,7 @@ function Categories({ }) {
         console.log(categoryy);
         const res = await updateCategoriesApi(catId, categoryy)
         console.log(res);
+        getCategory()
     }
 
     useEffect(() => {
@@ -119,9 +120,23 @@ function Categories({ }) {
                             cat.map((i, index) =>
                                 <div>
                                     <div droppable onDragOver={(e) => draggingOver(e, i.id)} onDrop={(e) => dropped(e, i.id)} key={index} className=' border p-3 mt-2 w-full flex flex-col justify-between w-100'>
-
+    
                                         <div className='flex justify-between'>
                                             <h1 className='mt-3 '>{i.categoryName}</h1>
+                                            <marquee>
+                                                <div className='flex flex-row gap-3'>
+                                                    {
+                                                        
+                                                        i.video.map(j => (
+                                                            <div className='flex'>
+                                                            
+                                                                <img src={j.imageUrl} alt="" className='w-10 h-10 '/>
+                                                            </div>
+                                                        ))
+                                                        
+                                                    }
+                                                </div>
+                                            </marquee>
                                             <button onClick={() => deleteCat(i.id)}
 
                                                 class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none flex items-center "
@@ -134,24 +149,11 @@ function Categories({ }) {
 
                                             </button>
                                         </div>
-                                        <div>
-                                            
-                                               
-                                                   
-                                            
-                                        </div>
+
 
                                     </div>
-                                    {
-                                                        i.video?.length > 0 &&
-                                                        i.video.map(video => {
-                                                            <div>
-                                                               {console.log(video.title)}
-                                                               <img src={video.imageUrl} alt="" srcset="" />
-                                                            </div>
-                                                        })
-                                                    }
-                                                
+
+
                                 </div>
 
                             )
