@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Typography } from "@material-tailwind/react";
 import { deletHistoryApi, getHistoryApi } from '../services/allApi';
 
+
 const TABLE_HEAD = ["#", "Date", "Title", "Video Url", ""];
 
 
 function History() {
 
     const [history, setHistory] = useState([])
-    
+
     const getHistory = async () => {
         const result = await getHistoryApi()
 
@@ -16,19 +17,21 @@ function History() {
     }
 
     const deleteHistory = async (id) => {
-        const result = await deletHistoryApi(id)
+       await deletHistoryApi(id)
         getHistory()
     }
 
     const sorting = () => {
 
+        // setHistory(i => [...i].reverse())
 
-        // const reverse = history.reverse( (a, b)=> b - a );
-        // const reverse = sort.reverse()
-        // console.log(reverse);
-        setHistory(i => [...i].reverse())
-        // console.log(history);
-        
+
+        const sortedData = [...history]
+        sortedData.sort((a, b) => new Date(b.date) - new Date(a.date))
+        setHistory(sortedData)
+
+
+
 
     }
 
@@ -79,7 +82,7 @@ function History() {
 
                         {
                             history?.length > 0 ?
-                            
+
                                 history.map((i, index) => (
                                     <tr key={index} className="even:bg-blue-gray-50/50">
                                         <td className="p-4">
@@ -112,7 +115,7 @@ function History() {
                                         </td>
                                     </tr>
                                 ))
-                                : <div className='w-full'><p className='text-center '>No History</p></div>
+                                : <p className='text-center w-full'>No History</p>
                         }
 
                     </tbody>

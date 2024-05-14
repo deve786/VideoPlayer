@@ -37,3 +37,12 @@ export const getHistoryApi = async () => {
 export const deletHistoryApi = async (id) => {
     return await commonRequest('DELETE', `${baseUrl}/history/${id}`, {})
 }
+
+
+export const getSingleVideoApi = async (id) => {
+    return await commonRequest('GET', `${baseUrl}/videos/${id}`, {})
+}
+
+export const updateCategoriesApi = async (id,body) => {
+    return await commonRequest('PUT', `${baseUrl}/categories/${id}`, body)
+}

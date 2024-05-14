@@ -52,8 +52,9 @@ function Add({ update }) {
             if (out.status >= 200 && out.status < 300) {
                 alert('video add successfully')
                 handleOpen()
-
+                console.log(update);
                 update(true)
+                console.log(update);
             }
             else {
                 console.log("failed video");

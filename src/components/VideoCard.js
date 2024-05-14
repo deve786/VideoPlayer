@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { format } from "date-fns";
 import {
     Button,
@@ -11,7 +11,7 @@ import { addHistoryApi, deleteVideoApi } from '../services/allApi';
 function VideoCard({ data, del }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = async() => {
-        setOpen((cur) => !cur)
+        setOpen(true)
         let title = data.title
         let url = data.videoUrl
         let date = format(new Date(), "yyyy-MM-dd hh:mm:ss a");
@@ -21,10 +21,15 @@ function VideoCard({ data, del }) {
             title,
             url
         }
+       
        const result=await addHistoryApi(bodyData)
-       console.log(result);
+    //    console.log(result);
         
     };
+
+    const handleClose=()=>{
+        setOpen(false)
+    }
     const deleteData = async (id) => {
         const out = await deleteVideoApi(id)
         if (out.status >= 200 && out.status < 300) {
@@ -33,15 +38,19 @@ function VideoCard({ data, del }) {
         }
 
     }
-
+  
+     const startDragging=(e,id)=>{
+        console.log(id);
+        e.dataTransfer.setData("card",id)
+     }
 
 
     return (
 
 
-        <div class=" flex flex-col w-96  mt-6 p-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl md:w-full ">
+        <div draggable onDragStart={(e)=>startDragging(e,data.id)} class=" flex flex-col w-96  mt-6 p-4 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl md:w-full ">
             <div class="relative h-56  w-80 sm:w-full md:w-full  overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40 sm:h-1/2">
-                <img onClick={handleOpen}
+                <img draggable={false} onClick={handleOpen}
                     src={data.imageUrl}
                     alt="card-image" className="h-56 w-80  cursor-pointer sm:w-full " />
             </div>
@@ -64,7 +73,7 @@ function VideoCard({ data, del }) {
 
                 </button>
             </div>
-            <Dialog size='lg' open={open} handler={handleOpen} className='text-center'>
+            <Dialog size='lg' open={open} handler={handleClose} className='text-center'>
 
                 <DialogBody className='flex justify-center min-w-full'>
                     <iframe width="100%" height="514" src={data.videoUrl} title="Coolie Disco - #COOLIE | Superstar Rajinikanth | Sun Pictures | Lokesh Kanagaraj | Anirudh" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
